@@ -2,22 +2,24 @@ var express = require("express");
 var path = require("path");
 
 var app = express();
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 
 //Stored notes array
 var notes = [];
 
 // Routes
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "notes.html"));
-});
-
+//API routes
 app.get("/api/notes", function(req, res) {
   return res.json(notes);
+});
+
+//HTML Routes
+app.get("/notes", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
+});
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 // Starts the server to begin listening
