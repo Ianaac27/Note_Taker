@@ -13,6 +13,10 @@ app.use(express.static('public'));
 
 // Routes
 //API routes
+
+//Random unique password
+//create random id using password generator!! letters, num, dashes
+//uuid npm package
 app.get("/api/notes", function(req, res) {
   //Use the fs module to read the file
   //THEN parse the file contents with JSON parse to get the real data 
@@ -45,11 +49,11 @@ app.delete("/api/notes/:id", function(req, res) {
 
 //HTML Routes
 app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "../public/notes.html"));
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 // Starts the server to begin listening
