@@ -27,13 +27,37 @@ app.get("/api/notes", function(req, res) {
 
 app.post("/api/notes", function(req, res) {
   // Access the posted data in req.body
-
+  const newNote = req.body;
+  console.log(newNote);
   //use the fs module to read the file
+
+  fs.readFile('./db/db.json', (err, data) => {
+    if (err) throw err;
   //then parse the file contents with JSON.parse() to the real data
+  let note = JSON.parse(data);
+  console.log(note);
+  console.log(newNote);
   //Push req.body to the array list.
   //JSON.stringify() the array list back into JSON string
-  //Save the content back to the db.json file with the fs module
+  note.push(req.body);
+  console.log(note);
 
+  let updatedArray = JSON.stringify(note);
+  console.log(updatedArray);
+
+  //Save the content back to the db.json file with the fs module
+  fs.writeFile('./db/db.json', updatedArray, (err) => {
+    if (err) throw err; 
+    else {
+    console.log("New note added");
+    }
+  })
+
+//Random unique password
+//create random id using password generator!! letters, num, dashes
+//uuid npm package
+
+})
 });
 
 app.delete("/api/notes/:id", function(req, res) {
@@ -47,11 +71,6 @@ app.delete("/api/notes/:id", function(req, res) {
   // Return any type of success message
 
 })
-
-//Random unique password
-//create random id using password generator!! letters, num, dashes
-//uuid npm package
-
 
 //HTML Routes
 app.get("/notes", function(req, res) {
