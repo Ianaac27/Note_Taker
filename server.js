@@ -1,5 +1,5 @@
 const express = require("express");
-// const fs = require("")
+const fs = require("fs");
 const path = require("path");
 
 const app = express();
@@ -13,15 +13,16 @@ app.use(express.static('public'));
 
 // Routes
 //API routes
-
-//Random unique password
-//create random id using password generator!! letters, num, dashes
-//uuid npm package
 app.get("/api/notes", function(req, res) {
   //Use the fs module to read the file
+  fs.readFile('./db/db.json', (err, data) => {
+    if (err) throw err;
   //THEN parse the file contents with JSON parse to get the real data 
-  
-  // return res.json(notes); ==> send the parsed data to the client with res.json
+    let note = JSON.parse(data);
+    console.log(note);
+  //Send the parsed data to the client with res.json  
+    return res.json(note);
+  })
 });
 
 app.post("/api/notes", function(req, res) {
@@ -46,6 +47,11 @@ app.delete("/api/notes/:id", function(req, res) {
   // Return any type of success message
 
 })
+
+//Random unique password
+//create random id using password generator!! letters, num, dashes
+//uuid npm package
+
 
 //HTML Routes
 app.get("/notes", function(req, res) {
