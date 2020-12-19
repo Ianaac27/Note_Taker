@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -11,41 +12,35 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-// Routes
-//API routes
+// Routes 
+// API Routes
 app.get("/api/notes", function(req, res) {
-  //Use the fs module to read the file
   fs.readFile('./db/db.json', (err, data) => {
     if (err) throw err;
-  //THEN parse the file contents with JSON parse to get the real data 
     let note = JSON.parse(data);
     console.log(note);
-  //Send the parsed data to the client with res.json  
     return res.json(note);
   })
 });
 
 app.post("/api/notes", function(req, res) {
-  // Access the posted data in req.body
-  const newNote = req.body;
+  let newNote = req.body;
   console.log(newNote);
-  //use the fs module to read the file
+  let newID = crypto.randomBytes(16).toString("hex");
+  console.log(newID);
+
+  newNote.id = newID;
+  console.log(newNote);
 
   fs.readFile('./db/db.json', (err, data) => {
-    if (err) throw err;
-  //then parse the file contents with JSON.parse() to the real data
+    if (err) throw err;   
   let note = JSON.parse(data);
   console.log(note);
-  console.log(newNote);
-  //Push req.body to the array list.
-  //JSON.stringify() the array list back into JSON string
-  note.push(req.body);
-  console.log(note);
+  note.push(newNote);
 
   let updatedArray = JSON.stringify(note);
   console.log(updatedArray);
 
-  //Save the content back to the db.json file with the fs module
   fs.writeFile('./db/db.json', updatedArray, (err) => {
     if (err) throw err; 
     else {
@@ -53,10 +48,7 @@ app.post("/api/notes", function(req, res) {
     }
   })
 
-//Random unique password
-//create random id using password generator!! letters, num, dashes
-//uuid npm package
-
+  return res.json(updatedArray);
 })
 });
 
