@@ -18,7 +18,6 @@ app.get("/api/notes", function(req, res) {
   fs.readFile('./db/db.json', (err, data) => {
     if (err) throw err;
     let note = JSON.parse(data);
-    console.log(note);
     return res.json(note);
   })
 });
@@ -35,7 +34,6 @@ app.post("/api/notes", function(req, res) {
   fs.readFile('./db/db.json', (err, data) => {
     if (err) throw err;   
   let note = JSON.parse(data);
-  console.log(note);
   note.push(newNote);
 
   let updatedArray = JSON.stringify(note);
@@ -53,16 +51,31 @@ app.post("/api/notes", function(req, res) {
 });
 
 app.delete("/api/notes/:id", function(req, res) {
-  // Acces :id from 'req.params.id'
-  //Use the fs module to read the file
-  //THEN parse the file contents with JSON parse to get the real data 
+
+console.log( req.params.id );
   
-  //Find the matching index using .findIndex()
-  //Remove the target element using .splice()
+  fs.readFile('./db/db.json', (err, data) => {
+    if (err) throw err;   
+  let note = JSON.parse(data);
+  console.log(note);
 
-  // Return any type of success message
+  note = note.filter(({id }) => id !== req.params.id);
 
+  console.log (note);
+
+  let updatedArray = JSON.stringify(note);
+
+  fs.writeFile('./db/db.json', updatedArray, (err) => {
+    if (err) throw err; 
+    else {
+    console.log("Note Deleted");
+    }
+  })
+
+  // // Return any type of success message
+  return res.json({ ok: true});
 })
+});
 
 //HTML Routes
 app.get("/notes", function(req, res) {
