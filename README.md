@@ -29,7 +29,7 @@ Here are mocks of the Note Taker.
 ![Note_Taker](public/assets/screenshot2.PNG)
 
 # Link
-Take a look at the live version through Heroku [here.](https://polar-dusk-41536.herokuapp.com/)
+Take a look at the live version through Heroku [here.](https://note-taker-ifc.herokuapp.com/)
 
 ## Questions
 
