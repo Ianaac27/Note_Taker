@@ -1,7 +1,7 @@
 # Note_Taker
 ## Description
 
-This is an application that allows the user to create, save, and delete notes. This project uses Express.JS to create and pass a local API set within a JSON file. I was responsible for developing API and HTML Routes so that the user can dynamically add and save, or delete content within the JSON file, and then in reponse, the application will display the content on the page. I also had to dynamically generate unique ID's for reach note created so that the save and delete functions could function appropriately.
+This is an application that allows the user to create, save, and delete notes. This project uses Express.JS to create and pass a local API set within a JSON file. I was responsible for developing API and HTML Routes so that the user can dynamically add and save, or delete content within the JSON file, and then in response, the application will display the content on the page. I also had to dynamically generate unique ID's for reach note created so that the save and delete functions could function appropriately.
 
 ## Table of Contents
 
