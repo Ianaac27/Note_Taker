@@ -21,6 +21,8 @@ MIT
 
 Ianaac27
 
+Trilogy Education Services
+
 # Screenshots
 Here are mocks of the Note Taker.
 
